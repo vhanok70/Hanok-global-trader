@@ -1,0 +1,47 @@
+import { motion } from "framer-motion";
+import { TrendingUp, TrendingDown } from "lucide-react";
+
+const CommodityTicker = () => {
+  const commodities = [
+    { name: "Gold", price: "$2,042", change: "+1.2%", trend: "up" },
+    { name: "Crude Oil", price: "$78.45", change: "-0.8%", trend: "down" },
+    { name: "Wheat", price: "$645", change: "+2.1%", trend: "up" },
+    { name: "Steel", price: "$892", change: "+0.5%", trend: "up" },
+    { name: "Cotton", price: "$82.3", change: "-1.4%", trend: "down" },
+    { name: "Copper", price: "$3.85", change: "+1.8%", trend: "up" },
+  ];
+
+  return (
+    <div className="bg-muted/50 border-y border-border py-4 overflow-hidden">
+      <motion.div
+        animate={{ x: [0, -1000] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="flex space-x-8 whitespace-nowrap"
+      >
+        {[...commodities, ...commodities].map((commodity, index) => (
+          <div
+            key={index}
+            className="flex items-center space-x-3 px-6 py-2 bg-card rounded-lg shadow-sm"
+          >
+            <span className="font-semibold text-foreground">{commodity.name}</span>
+            <span className="text-lg font-bold text-primary">{commodity.price}</span>
+            <span
+              className={`flex items-center text-sm ${
+                commodity.trend === "up" ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {commodity.trend === "up" ? (
+                <TrendingUp className="w-4 h-4 mr-1" />
+              ) : (
+                <TrendingDown className="w-4 h-4 mr-1" />
+              )}
+              {commodity.change}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+export default CommodityTicker;
